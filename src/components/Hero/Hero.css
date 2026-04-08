@@ -125,6 +125,58 @@
   transform: rotate(45deg);
 }
 
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .hero {
+    padding: 1.25rem;
+    align-items: flex-end;
+    padding-bottom: 6rem;
+  }
+
+  /* Hide the decorative scissor – looks like an actual icon on small screens */
+  .hero::after {
+    display: none;
+  }
+
+  /* Shift focal point so the subject stays visible on portrait screens */
+  .hero__bg-image {
+    object-position: 60% center;
+  }
+
+  .hero__content {
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .hero__badge {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    padding: 0.4rem 1rem;
+  }
+
+  .hero__subtitle {
+    margin: 0 0 2rem;
+    max-width: 100%;
+  }
+
+  .hero__actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero__actions .btn-primary,
+  .hero__actions .btn-outline {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 /* ── Animations ── */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(30px); }

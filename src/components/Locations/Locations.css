@@ -193,8 +193,8 @@
 
 @media (max-width: 768px) {
   .loc-panel__scroll-content {
-    gap: 35vh;
-    padding: 15vh 0 80vh;
+    gap: 12vh;
+    padding: 15vh 0 30vh;
   }
 
   .loc-panel__block {
@@ -224,8 +224,8 @@
 
 @media (max-width: 480px) {
   .loc-panel__scroll-content {
-    gap: 28vh;
-    padding: 12vh 0 60vh;
+    gap: 8vh;
+    padding: 12vh 0 20vh;
   }
 
   .loc-panel__block {
