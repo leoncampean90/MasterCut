@@ -47,6 +47,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   overscroll-behavior-x: none;
+  touch-action: pan-y;
 }
 
 h1, h2, h3, h4 {
