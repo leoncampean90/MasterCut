@@ -170,6 +170,7 @@ const Highlights: React.FC = () => {
 
   const onTouchMove = (e: React.TouchEvent) => {
     if (!isDragging) return;
+    e.preventDefault();
     applyOffset(e.touches[0].clientX);
   };
 
