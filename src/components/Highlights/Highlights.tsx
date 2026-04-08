@@ -7,41 +7,49 @@ const SLIDES = [
     src: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=900&q=80',
     title: 'Barber Studio',
     subtitle: 'Precision Cuts & Grooming',
+    accent: '✂️',
   },
   {
     src: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=900&q=80',
     title: 'Nail Artistry',
     subtitle: 'Manicures & Pedicures',
+    accent: '💅',
   },
   {
     src: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=900&q=80',
     title: 'Makeup',
     subtitle: 'Looks That Wow',
+    accent: '💄',
   },
   {
     src: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=80',
     title: 'Cosmetic Care',
     subtitle: 'Radiant & Youthful',
+    accent: '✨',
   },
   {
     src: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80',
     title: 'Massage',
     subtitle: 'Relax & Recharge',
+    accent: '💆',
   },
   {
     src: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=900&q=80',
     title: 'Bridal & Events',
     subtitle: 'Your Special Day',
+    accent: '👰',
   },
   {
     src: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=900&q=80',
     title: 'Hot Stone Therapy',
     subtitle: 'Deep Relaxation',
+    accent: '🪨',
   },
   {
     src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=80',
     title: 'Spa Luxury',
     subtitle: 'Total Wellness',
+    accent: '🧖',
   },
 ];
 
@@ -199,7 +207,6 @@ const Highlights: React.FC = () => {
             <div className="carousel__slide" key={`${slide.title}-${i}`}>
               <img src={slide.src} alt={slide.title} loading="lazy" draggable={false} />
               <div className="carousel__overlay">
-                <span className="carousel__accent">{slide.accent}</span>
                 <h4 className="carousel__title">{slide.title}</h4>
                 <p className="carousel__subtitle">{slide.subtitle}</p>
               </div>
