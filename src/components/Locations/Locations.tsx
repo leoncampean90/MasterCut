@@ -81,6 +81,38 @@ function useReveal() {
 
 const Locations: React.FC = () => {
   const ref = useReveal();
+  const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Scroll-driven cross-fade: as panel[i] enters, fade its photo IN
+  // while simultaneously fading panel[i-1]'s photo and text OUT
+  useEffect(() => {
+    const onScroll = () => {
+      const vh = window.innerHeight;
+      panelRefs.current.forEach((panel, i) => {
+        if (i === 0 || !panel) return;
+        const prevPanel = panelRefs.current[i - 1];
+        if (!prevPanel) return;
+
+        // 0 = panel[i] just entered bottom of screen, 1 = reached top
+        const top = panel.getBoundingClientRect().top;
+        const progress = Math.min(1, Math.max(0, 1 - top / vh));
+
+        // Fade IN current panel's photo
+        const curBgWrap = panel.querySelector<HTMLDivElement>('.loc-panel__bg-wrap');
+        if (curBgWrap) curBgWrap.style.opacity = String(progress);
+
+        // Fade OUT previous panel's photo (brightness) and text
+        const prevBg = prevPanel.querySelector<HTMLImageElement>('.loc-panel__bg');
+        const prevContent = prevPanel.querySelector<HTMLDivElement>('.loc-panel__scroll-content');
+        if (prevBg) prevBg.style.filter = `brightness(${0.35 * (1 - progress)}) saturate(0.85)`;
+        if (prevContent) prevContent.style.opacity = String(1 - progress);
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <section className="locations" id="locations">
@@ -94,8 +126,12 @@ const Locations: React.FC = () => {
       </div>
 
       {/* Full-width location panels */}
-      {LOCATIONS.map((loc) => (
-        <div className="loc-panel" key={loc.name}>
+      {LOCATIONS.map((loc, i) => (
+        <div
+          className="loc-panel"
+          key={loc.name}
+          ref={(el: HTMLDivElement | null) => { panelRefs.current[i] = el; }}
+        >
           {/* Sticky wide background photo */}
           <div className="loc-panel__bg-wrap">
             <img

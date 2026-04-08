@@ -9,7 +9,7 @@
 .services__picker {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 7rem;
+  gap: 1.5rem;
   max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
@@ -30,8 +30,8 @@
   background: none;
   padding: 0;
   aspect-ratio: 2 / 3;
-  min-height: 380px;
-  transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  z-index: 1;
+  transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease, z-index 0s;
 }
 
 .services__photo-btn:hover {
@@ -40,6 +40,7 @@
   box-shadow:
     0 0 40px rgba(212, 168, 67, 0.15),
     0 20px 50px rgba(0, 0, 0, 0.5);
+  z-index: 3;
 }
 
 .services__photo-btn-img {
@@ -339,6 +340,12 @@
 @media (max-width: 1024px) {
   .services__picker {
     grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  /* Center the last orphan when 5 items in 3-col grid */
+  .services__picker .services__photo-btn:last-child:nth-child(3n - 1) {
+    grid-column: 2 / 3;
   }
 
   .showcase-card__content {
@@ -355,6 +362,7 @@
   .services__photo-btn {
     border-radius: 12px;
     aspect-ratio: 3 / 4;
+    min-height: unset;
   }
 
   .services__photo-btn-icon {
@@ -363,6 +371,7 @@
 
   .services__photo-btn-label {
     font-size: 0.85rem;
+    letter-spacing: 1px;
   }
 
   .showcase-card {
@@ -388,17 +397,30 @@
     gap: 0.6rem;
   }
 
+  /* 5th item: span full width and center itself */
+  .services__picker .services__photo-btn:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: calc(50% - 0.3rem);
+    margin-inline: auto;
+  }
+
+  .services__photo-btn {
+    min-height: unset;
+    aspect-ratio: 2 / 3;
+  }
+
   .services__photo-btn-overlay {
     padding: 1rem 0.6rem;
   }
 
   .services__photo-btn-icon {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-bottom: 0.3rem;
   }
 
   .services__photo-btn-label {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
   }
 
   .showcase-card {
