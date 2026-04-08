@@ -1,0 +1,22 @@
+#!/usr/bin/expect -f
+set timeout 180
+spawn gh auth login -p https -w
+expect "Authenticate Git"
+send "Y\r"
+expect {
+    -re "one-time code: (\[A-Z0-9-\]+)" {
+        set code $expect_out(1,string)
+        puts "\n>>> YOUR CODE: $code <<<"
+    }
+}
+expect "Press Enter"
+send "\r"
+expect {
+    "Logged in" {
+        puts "\n>>> SUCCESS: Logged in to GitHub! <<<"
+    }
+    timeout {
+        puts "\n>>> TIMEOUT: Please complete login in browser <<<"
+    }
+}
+expect eof

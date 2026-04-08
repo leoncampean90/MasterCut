@@ -1,0 +1,239 @@
+/* ═══════════════════════════════════════
+   Locations – Immersive Scroll Panels
+   ═══════════════════════════════════════ */
+.locations {
+  padding: 0;
+  background: var(--black);
+}
+
+.locations__header {
+  padding: var(--section-padding);
+  padding-bottom: 2rem;
+}
+
+/* ── Location Panel ── */
+.loc-panel {
+  position: relative;
+  width: 100%;
+  /* Tall enough so user can scroll through all blocks while bg stays pinned */
+  min-height: 200vh;
+}
+
+/* ── Sticky full-width background photo ── */
+.loc-panel__bg-wrap {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.loc-panel__bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.35) saturate(0.85);
+  transition: filter 0.6s ease;
+}
+
+.loc-panel__bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.4) 0%,
+    rgba(10, 10, 10, 0.25) 40%,
+    rgba(10, 10, 10, 0.7) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── Scrollable content layer ── */
+.loc-panel__scroll-content {
+  position: relative;
+  z-index: 2;
+  /* Pull content up so it overlaps the sticky bg */
+  margin-top: -100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 30vh 0 20vh;
+}
+
+/* ── Individual reveal blocks ── */
+.loc-panel__block {
+  width: 100%;
+  max-width: 680px;
+  margin-left: 8vw;
+  padding: 1.5rem 0;
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.loc-panel__block.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Typography ── */
+.loc-panel__name {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  color: var(--white);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  line-height: 1.1;
+}
+
+.loc-panel__sub-title {
+  font-size: 1.15rem;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Details (address, phone, email) */
+.loc-panel__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.loc-panel__detail {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(245, 245, 245, 0.85);
+  font-size: 1rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.loc-panel__icon {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+/* Hours */
+.loc-panel__hours {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.loc-panel__hours-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.95rem;
+  max-width: 420px;
+}
+
+.loc-panel__hours-row .day {
+  color: var(--white);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.loc-panel__hours-row .time {
+  color: var(--gold-light);
+  font-weight: 500;
+}
+
+/* Service tags */
+.loc-panel__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.loc-panel__tag {
+  padding: 0.4rem 1rem;
+  background: rgba(212, 168, 67, 0.12);
+  border: 1px solid rgba(212, 168, 67, 0.3);
+  border-radius: 24px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(4px);
+}
+
+/* Actions */
+.loc-panel__actions {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.loc-panel__actions .btn-primary,
+.loc-panel__actions .btn-outline {
+  padding: 0.85rem 2.2rem;
+  font-size: 0.9rem;
+  min-width: 160px;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════
+   Responsive
+   ═══════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .loc-panel__block {
+    margin-left: 5vw;
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 768px) {
+  .loc-panel {
+    min-height: 180vh;
+  }
+
+  .loc-panel__scroll-content {
+    padding: 25vh 0 15vh;
+  }
+
+  .loc-panel__block {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    max-width: 100%;
+  }
+
+  .loc-panel__name {
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+  }
+
+  .loc-panel__hours-row {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .loc-panel {
+    min-height: 200vh;
+  }
+
+  .loc-panel__scroll-content {
+    padding: 20vh 0 12vh;
+  }
+
+  .loc-panel__block {
+    padding: 1rem 0;
+  }
+
+  .loc-panel__actions {
+    flex-direction: column;
+  }
+
+  .loc-panel__actions .btn-primary,
+  .loc-panel__actions .btn-outline {
+    width: 100%;
+  }
+}

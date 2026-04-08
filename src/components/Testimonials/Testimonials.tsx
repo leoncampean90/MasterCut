@@ -12,23 +12,23 @@ const TESTIMONIALS: Testimonial[] = [
   {
     name: 'James Whitfield',
     initials: 'JW',
-    role: 'Regular Client',
+    role: 'Regular Client – Barber',
     stars: 5,
-    text: 'MasterCut is in a league of its own. The attention to detail and the atmosphere make every visit a genuine experience. Wouldn\'t go anywhere else.',
+    text: 'MasterCut is in a league of its own. The attention to detail on my haircut and the atmosphere make every visit a genuine experience. Wouldn\'t go anywhere else.',
+  },
+  {
+    name: 'Maria Santos',
+    initials: 'MS',
+    role: 'Client – Nails & Makeup',
+    stars: 5,
+    text: 'The nail artists here are incredibly creative, and the bridal makeup trial was flawless. I booked them for my entire wedding party!',
   },
   {
     name: 'David Chen',
     initials: 'DC',
-    role: 'Client since 2022',
+    role: 'Client – Massage & Cosmetic',
     stars: 5,
-    text: 'From the moment you walk in, you know you\'re in good hands. The barbers here are true craftsmen – every cut is a work of art.',
-  },
-  {
-    name: 'Marcus Rivera',
-    initials: 'MR',
-    role: 'VIP Member',
-    stars: 5,
-    text: 'The Royal Treatment package is worth every penny. Hot towel shave, perfect fade, and I leave looking and feeling like a million bucks.',
+    text: 'The deep tissue massage followed by a rejuvenating facial — absolute heaven. Both locations are beautifully maintained and the staff is top-notch.',
   },
 ];
 

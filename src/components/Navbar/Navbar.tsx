@@ -4,9 +4,10 @@ import './Navbar.css';
 const NAV_ITEMS = [
   { label: 'Home', href: '#hero' },
   { label: 'Services', href: '#services' },
+  { label: 'Locations', href: '#locations' },
+  { label: 'Team', href: '#team' },
   { label: 'About', href: '#about' },
   { label: 'Gallery', href: '#gallery' },
-  { label: 'Testimonials', href: '#testimonials' },
   { label: 'Contact', href: '#contact' },
 ];
 

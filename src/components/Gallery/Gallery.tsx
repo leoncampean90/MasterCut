@@ -11,11 +11,11 @@ interface GalleryImage {
  */
 const GALLERY_ITEMS: GalleryImage[] = [
   { src: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=900&q=80', alt: 'Classic barbering', label: 'Classic Barbering' },
-  { src: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80', alt: 'Precision haircut', label: 'Precision Cuts' },
-  { src: 'https://images.unsplash.com/photo-1593702288056-7927b442d0fa?w=600&q=80', alt: 'Clean shave', label: 'Clean Shaves' },
-  { src: 'https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=600&q=80', alt: 'Gentleman styling', label: "Gentleman's Style" },
-  { src: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&q=80', alt: 'Modern fade', label: 'Modern Fades' },
-  { src: 'https://images.unsplash.com/photo-1621607512214-68297480165e?w=600&q=80', alt: 'Premium products', label: 'Premium Products' },
+  { src: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80', alt: 'Nail artistry', label: 'Nail Artistry' },
+  { src: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&q=80', alt: 'Makeup artistry', label: 'Makeup Artistry' },
+  { src: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80', alt: 'Cosmetic treatment', label: 'Cosmetic Glow' },
+  { src: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80', alt: 'Relaxing massage', label: 'Relaxing Massage' },
+  { src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80', alt: 'Premium studio', label: 'Premium Studio' },
 ];
 
 const Gallery: React.FC = () => (
@@ -23,7 +23,7 @@ const Gallery: React.FC = () => (
     <div className="container">
       <h2 className="section-title">Our Work</h2>
       <div className="gold-line" />
-      <p className="section-subtitle">A glimpse into the MasterCut experience</p>
+      <p className="section-subtitle">A glimpse into the MasterCut experience across all our services</p>
 
       <div className="gallery__grid">
         {GALLERY_ITEMS.map((item) => (

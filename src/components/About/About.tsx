@@ -24,31 +24,36 @@ const About: React.FC = () => (
           <h2>The MasterCut Story</h2>
           <div className="gold-line" />
           <p>
-            Founded with a passion for timeless grooming, MasterCut is more than a barbershop —
-            it's a destination. Our master barbers blend classic techniques with contemporary trends
-            to deliver an experience that's as refined as it is relaxing.
+            Founded with a passion for beauty and wellness, MasterCut is more than a salon —
+            it's a complete destination. Our specialists across barber, nails, makeup, cosmetic
+            treatments, and massage blend classic techniques with contemporary trends to deliver
+            an experience that's as refined as it is relaxing.
           </p>
           <p>
-            Every detail matters, from the warm towel on your face to the final touch of styling.
-            Step into our shop and leave feeling like the best version of yourself.
+            Every detail matters, from the precision of a fresh haircut to the calm of a deep-tissue
+            massage. Visit either of our two locations and leave feeling like the best version of yourself.
           </p>
 
           <div className="about__stats">
             <div className="about__stat">
-              <span className="value">5K+</span>
+              <span className="value">8K+</span>
               <span className="label">Happy Clients</span>
             </div>
             <div className="about__stat">
-              <span className="value">12</span>
-              <span className="label">Expert Barbers</span>
+              <span className="value">30+</span>
+              <span className="label">Specialists</span>
             </div>
             <div className="about__stat">
-              <span className="value">15+</span>
-              <span className="label">Awards Won</span>
+              <span className="value">2</span>
+              <span className="label">Locations</span>
+            </div>
+            <div className="about__stat">
+              <span className="value">5</span>
+              <span className="label">Service Categories</span>
             </div>
           </div>
 
-          <a href="#contact" className="btn-primary">Visit Us</a>
+          <a href="#locations" className="btn-primary">Our Locations</a>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ const Contact: React.FC = () => {
     email: '',
     phone: '',
     service: '',
+    location: '',
     message: '',
   });
 
@@ -19,7 +20,7 @@ const Contact: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert('Thank you! We will get back to you shortly.');
-    setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+    setFormData({ name: '', email: '', phone: '', service: '', location: '', message: '' });
   };
 
   return (
@@ -32,8 +33,8 @@ const Contact: React.FC = () => {
               <h2>Get In Touch</h2>
               <div className="gold-line" />
               <p>
-                Ready to experience the MasterCut difference? Book your appointment
-                or drop us a message — we'd love to hear from you.
+                Ready to experience the MasterCut difference? Choose your service,
+                pick a location, and book your appointment — we'd love to hear from you.
               </p>
             </div>
 
@@ -41,15 +42,22 @@ const Contact: React.FC = () => {
               <div className="contact__detail">
                 <div className="contact__detail-icon">📍</div>
                 <div>
-                  <div className="contact__detail-label">Address</div>
+                  <div className="contact__detail-label">Downtown</div>
                   <div className="contact__detail-value">123 Barber Lane, Downtown District</div>
+                </div>
+              </div>
+              <div className="contact__detail">
+                <div className="contact__detail-icon">📍</div>
+                <div>
+                  <div className="contact__detail-label">Uptown</div>
+                  <div className="contact__detail-value">456 Elegance Ave, Uptown Quarter</div>
                 </div>
               </div>
               <div className="contact__detail">
                 <div className="contact__detail-icon">📞</div>
                 <div>
                   <div className="contact__detail-label">Phone</div>
-                  <div className="contact__detail-value">+1 (555) MASTER-CUT</div>
+                  <div className="contact__detail-value">+1 (555) 100-2000 / 300-4000</div>
                 </div>
               </div>
               <div className="contact__detail">
@@ -130,12 +138,63 @@ const Contact: React.FC = () => {
                   required
                 >
                   <option value="">Select a service</option>
-                  <option value="haircut">Classic Haircut</option>
-                  <option value="shave">Hot Towel Shave</option>
-                  <option value="beard">Beard Sculpting</option>
-                  <option value="royal">The Royal Treatment</option>
-                  <option value="color">Hair Coloring</option>
-                  <option value="scalp">Scalp Treatment</option>
+                  <optgroup label="✂️ Barber">
+                    <option value="haircut">Classic Haircut</option>
+                    <option value="shave">Hot Towel Shave</option>
+                    <option value="beard">Beard Sculpting</option>
+                    <option value="royal">The Royal Treatment</option>
+                    <option value="color">Hair Coloring</option>
+                    <option value="scalp">Scalp Treatment</option>
+                  </optgroup>
+                  <optgroup label="💅 Nails">
+                    <option value="manicure">Classic Manicure</option>
+                    <option value="gel-nails">Gel Nails</option>
+                    <option value="nail-art">Nail Art & Design</option>
+                    <option value="pedicure">Spa Pedicure</option>
+                    <option value="acrylic">Acrylic Extensions</option>
+                    <option value="mani-pedi">Express Mani-Pedi</option>
+                  </optgroup>
+                  <optgroup label="💄 Makeup">
+                    <option value="bridal">Bridal Makeup</option>
+                    <option value="evening">Evening Glam</option>
+                    <option value="natural">Natural Everyday Look</option>
+                    <option value="lesson">Makeup Lesson</option>
+                    <option value="lashes">Lash Extensions</option>
+                    <option value="brows">Brow Shaping & Tint</option>
+                  </optgroup>
+                  <optgroup label="✨ Cosmetic">
+                    <option value="facial">Deep Cleanse Facial</option>
+                    <option value="peel">Chemical Peel</option>
+                    <option value="microderm">Microdermabrasion</option>
+                    <option value="anti-aging">Anti-Aging Treatment</option>
+                    <option value="led">LED Light Therapy</option>
+                    <option value="hydrating">Hydrating Mask</option>
+                  </optgroup>
+                  <optgroup label="💆 Massage">
+                    <option value="swedish">Swedish Massage</option>
+                    <option value="deep-tissue">Deep Tissue Massage</option>
+                    <option value="hot-stone">Hot Stone Therapy</option>
+                    <option value="aromatherapy">Aromatherapy Massage</option>
+                    <option value="couples">Couples Massage</option>
+                    <option value="head-shoulder">Head & Shoulder Relief</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="location">Preferred Location</label>
+                <select
+                  id="location"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select a location</option>
+                  <option value="downtown">MasterCut Downtown</option>
+                  <option value="uptown">MasterCut Uptown</option>
                 </select>
               </div>
             </div>

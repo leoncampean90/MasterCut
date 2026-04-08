@@ -8,8 +8,8 @@ const Footer: React.FC = () => (
         <div className="footer__brand">
           <div className="footer__brand-name">MasterCut</div>
           <p>
-            Premium barbershop &amp; hairstyling. Where tradition meets modern style
-            and every visit is a refined experience.
+            Premium beauty &amp; wellness studio. Barber, nails, makeup, cosmetic,
+            and massage — two locations, one elevated experience.
           </p>
           <div className="footer__socials">
             <a href="#" className="footer__social-link" aria-label="Instagram">📷</a>
@@ -25,6 +25,7 @@ const Footer: React.FC = () => (
           <ul>
             <li><a href="#hero">Home</a></li>
             <li><a href="#services">Services</a></li>
+            <li><a href="#locations">Locations</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -35,18 +36,18 @@ const Footer: React.FC = () => (
         <div className="footer__col">
           <h4>Services</h4>
           <ul>
-            <li><a href="#services">Classic Haircut</a></li>
-            <li><a href="#services">Hot Towel Shave</a></li>
-            <li><a href="#services">Beard Sculpting</a></li>
-            <li><a href="#services">The Royal Treatment</a></li>
-            <li><a href="#services">Hair Coloring</a></li>
+            <li><a href="#services">Barber</a></li>
+            <li><a href="#services">Nails</a></li>
+            <li><a href="#services">Makeup</a></li>
+            <li><a href="#services">Cosmetic</a></li>
+            <li><a href="#services">Massage</a></li>
           </ul>
         </div>
 
         {/* Newsletter */}
         <div className="footer__col footer__newsletter">
           <h4>Stay Updated</h4>
-          <p>Subscribe for exclusive offers and grooming tips.</p>
+          <p>Subscribe for exclusive offers and beauty tips.</p>
           <form className="footer__newsletter-form" onSubmit={(e) => e.preventDefault()}>
             <input type="email" placeholder="Your email" />
             <button type="submit" aria-label="Subscribe">→</button>

@@ -9,21 +9,21 @@ const Hero: React.FC = () => (
       className="hero__bg-image"
     />
     <div className="hero__content">
-      <span className="hero__badge">Est. 2024 — Premium Grooming</span>
+      <span className="hero__badge">Est. 2024 — Beauty & Wellness Studio</span>
 
       <h1 className="hero__title">
-        <span>Where Tradition</span>
-        <span>Meets Style</span>
+        <span>Your Complete</span>
+        <span>Beauty Destination</span>
       </h1>
 
       <p className="hero__subtitle">
-        Experience the art of precision grooming. Crafted cuts, hot towel shaves,
-        and a timeless atmosphere designed for the modern gentleman.
+        Barber, nails, makeup, cosmetic treatments &amp; massage — all under one roof.
+        Two premium locations designed to make you look and feel your absolute best.
       </p>
 
       <div className="hero__actions">
         <a href="#contact" className="btn-primary">Book Appointment</a>
-        <a href="#services" className="btn-outline">Our Services</a>
+        <a href="#services" className="btn-outline">Explore Services</a>
       </div>
     </div>
 
