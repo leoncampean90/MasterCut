@@ -102,12 +102,18 @@
   flex-direction: column;
   align-items: center;
   transform-origin: center center;
-  animation: content-in 1s 0.1s ease both, text-breathe 20s ease-in-out infinite;
+  animation: content-in 1s 0.1s ease both, text-breathe 20s ease-in-out 1;
 }
 
 @keyframes text-breathe {
   0%   { scale: 1.0; }
   50%  { scale: 1.3; }
+  100% { scale: 1.0; }
+}
+
+@keyframes text-breathe-mobile {
+  0%   { scale: 1.0; }
+  50%  { scale: 1.08; }
   100% { scale: 1.0; }
 }
 
@@ -344,6 +350,7 @@
     text-align: left;
     align-items: flex-start;
     transform-origin: left bottom;
+    animation: content-in 1s 0.1s ease both, text-breathe-mobile 20s ease-in-out 1;
   }
 
   .hero__content::before {
@@ -400,6 +407,7 @@
   .hero__content {
     align-items: flex-start;
     text-align: left;
+    animation: content-in 1s 0.1s ease both, text-breathe-mobile 20s ease-in-out 1;
   }
 
   .hero__badge {
