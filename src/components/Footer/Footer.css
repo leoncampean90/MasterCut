@@ -47,6 +47,12 @@
   transition: var(--transition-fast);
 }
 
+.footer__social-link svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
 .footer__social-link:hover {
   background: var(--gold);
   color: var(--black);
@@ -161,30 +167,80 @@
   color: var(--gold);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .footer {
+    padding: 3.5rem 2rem 2rem;
+  }
+
   .footer__top {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 2rem;
+  }
+
+  /* Brand spans full row */
+  .footer__brand {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 1.75rem;
+  }
+
+  .footer__brand p {
+    max-width: 360px;
+  }
+
+  .footer__brand-name {
+    white-space: nowrap;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .footer {
     padding: 3rem 1.25rem 1.5rem;
   }
 
   .footer__top {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+  }
+
+  /* Brand still full-width */
+  .footer__brand {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
 
   .footer__brand p {
     max-width: 100%;
-    margin: 0 auto;
+    font-size: 0.8rem;
   }
 
-  .footer__socials {
-    justify-content: center;
+  /* Newsletter spans full row */
+  .footer__newsletter {
+    grid-column: 1 / -1;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer__top {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "brand"
+      "links"
+      "services"
+      "newsletter";
+    gap: 1.75rem;
+  }
+
+  .footer__col h4 {
+    margin-bottom: 0.9rem;
   }
 
   .footer__newsletter-form {
@@ -200,20 +256,20 @@
     border: none;
     border-top: 1px solid rgba(212,168,67,0.15);
     padding: 0.75rem 1rem;
-    background: rgba(212,168,67,0.12);
+    width: 100%;
   }
 
   .footer__bottom {
-    justify-content: center;
-    text-align: center;
     flex-direction: column;
-    gap: 0.5rem;
+    align-items: flex-start;
+    gap: 0.6rem;
   }
 
-  .footer__col ul li a {
-    font-size: 0.85rem;
+  .footer__bottom-links {
+    gap: 1rem;
   }
 }
+
 
 /* ── Footer 3D + Futuristic Enhancements ── */
 

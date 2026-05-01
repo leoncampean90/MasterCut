@@ -180,261 +180,289 @@
 /* ═══════════════════════════════════
    Right form panel
 ═══════════════════════════════════ */
-.contact__form {
+
+
+/* ═══════════════════════════════════════════
+   MERO BOOKING CARD
+═══════════════════════════════════════════ */
+.contact__mero {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  background: #0d0d0d;
+  overflow: hidden;
+}
+
+/* Subtle diagonal grid texture */
+.contact__mero-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(135deg, rgba(212,168,67,0.04) 1px, transparent 1px),
+    linear-gradient(45deg, rgba(212,168,67,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Top-left glow accent */
+.contact__mero::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  left: -80px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(212,168,67,0.12) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Bottom-right glow */
+.contact__mero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  right: -60px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(212,168,67,0.08) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.contact__mero-inner {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  background: var(--black);
-  padding: 0;
-}
-
-.contact__form-header {
-  padding: 4rem 4rem 2rem;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.contact__form-header h3 {
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 0.4rem;
-  letter-spacing: 0.5px;
-}
-
-.contact__form-header p {
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.38);
-  font-weight: 300;
-  letter-spacing: 0.03em;
-}
-
-.contact__form-body {
-  padding: 2.5rem 4rem;
+  padding: 4rem 4rem;
+  gap: 2.25rem;
   flex: 1;
+  justify-content: center;
 }
 
-.contact__form-footer {
-  padding: 2rem 4rem 4rem;
-  border-top: 1px solid rgba(255,255,255,0.05);
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-/* Form groups */
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  display: block;
-  font-size: 0.62rem;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 0.55rem;
-}
-
-.form-optional {
-  color: rgba(255,255,255,0.2);
-  text-transform: none;
-  letter-spacing: 0;
-  font-size: 0.65rem;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-  width: 100%;
-  padding: 0.85rem 1rem;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-bottom: 1px solid rgba(212,168,67,0.2);
-  border-radius: 0;
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  font-weight: 300;
-  transition: border-color 0.2s ease, background 0.2s ease;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: rgba(255,255,255,0.08);
-  border-bottom-color: var(--gold);
-  background: rgba(212,168,67,0.03);
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-  color: rgba(255,255,255,0.18);
-}
-
-.form-group select option {
-  background: #111;
-  color: var(--white);
-}
-
-.form-group select optgroup {
-  color: var(--gold);
-  font-size: 0.78rem;
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 90px;
-  line-height: 1.6;
-}
-
-/* Date input color fix */
-.form-group input[type="date"] {
-  color-scheme: dark;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-}
-
-/* Submit button */
-.contact__submit {
+/* Partner badge */
+.contact__mero-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.9rem 2.5rem;
-  background: transparent;
-  border: 1px solid rgba(212,168,67,0.5);
+  gap: 0.5rem;
+  background: rgba(212,168,67,0.1);
+  border: 1px solid rgba(212,168,67,0.25);
   color: var(--gold);
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  letter-spacing: 3px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  padding: 0.35rem 0.8rem;
+  width: fit-content;
 }
 
-.contact__submit svg {
-  width: 16px;
-  height: 16px;
-  stroke: currentColor;
-  transition: transform 0.25s ease;
+.contact__mero-badge svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
 }
 
-.contact__submit:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--black);
-  box-shadow: 0 0 30px rgba(212,168,67,0.25);
+/* Mero SVG wordmark */
+.contact__mero-logo {
+  display: block;
+  text-decoration: none;
+  width: fit-content;
+  transition: opacity 0.2s ease;
 }
 
-.contact__submit:hover svg {
-  transform: translateX(4px);
+.contact__mero-logo:hover {
+  opacity: 0.85;
 }
 
-.contact__disclaimer {
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.22);
+.mero-logo__svg {
+  width: 160px;
+  height: auto;
+  display: block;
+}
+
+/* Description */
+.contact__mero-desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.42);
   font-weight: 300;
+  max-width: 400px;
+  border-left: 2px solid rgba(212,168,67,0.3);
+  padding-left: 1rem;
+}
+
+/* Feature 2x2 grid */
+.contact__mero-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.mero-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 1rem;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.mero-feature:hover {
+  background: rgba(212,168,67,0.05);
+  border-color: rgba(212,168,67,0.2);
+}
+
+.mero-feature__icon {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212,168,67,0.1);
+  color: var(--gold);
+}
+
+.mero-feature__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.mero-feature div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.mero-feature strong {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--white);
   letter-spacing: 0.02em;
 }
 
-/* ═══════════════════════════════════
-   Responsive
-═══════════════════════════════════ */
+.mero-feature span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.38);
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+/* CTA button */
+.contact__mero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: var(--gold);
+  color: #0a0a0a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 1.1rem 2.5rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+  align-self: flex-start;
+  border: none;
+}
+
+.contact__mero-btn span {
+  transition: transform 0.2s ease;
+}
+
+.contact__mero-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.contact__mero-btn:hover {
+  background: var(--gold-light);
+  box-shadow: 0 10px 36px rgba(212,168,67,0.4);
+  transform: translateY(-1px);
+}
+
+.contact__mero-btn:hover svg {
+  transform: translateX(5px);
+}
+
+.contact__mero-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.05em;
+  font-weight: 300;
+  margin-top: -1rem;
+}
+
+/* ── Tablet ── */
 @media (max-width: 1100px) {
-  .contact__inner {
-    grid-template-columns: 360px 1fr;
+  .contact__mero-inner {
+    padding: 3rem 2.5rem;
   }
 
-  .contact__form-header,
-  .contact__form-body,
-  .contact__form-footer {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
+  .mero-logo__svg {
+    width: 140px;
+  }
+
+  .contact__mero-btn {
+    align-self: stretch;
   }
 }
 
-@media (max-width: 900px) {
+/* ── Stack vertically at 768px ── */
+@media (max-width: 768px) {
   .contact__inner {
     grid-template-columns: 1fr;
-    min-height: unset;
   }
 
-  .contact__info {
-    position: static;
-    height: auto;
-    padding: 4rem 2.5rem;
-    border-right: none;
-    border-bottom: 1px solid rgba(212,168,67,0.1);
+  .contact__mero-inner {
+    padding: 3rem 2rem;
+    gap: 2rem;
   }
 
-  .contact__form-header {
-    padding: 3rem 2.5rem 1.5rem;
+  .contact__mero-desc {
+    max-width: 100%;
   }
 
-  .contact__form-body {
-    padding: 2rem 2.5rem;
-  }
-
-  .contact__form-footer {
-    padding: 1.5rem 2.5rem 3rem;
+  .contact__mero-btn {
+    align-self: stretch;
   }
 }
 
-@media (max-width: 600px) {
-  .contact__info {
-    padding: 3rem 1.5rem;
-  }
-
-  .contact__form-header,
-  .contact__form-body,
-  .contact__form-footer {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .contact__form-footer {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .contact__submit {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 400px) {
-  .contact__info {
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .contact__mero-inner {
     padding: 2.5rem 1.25rem;
+    gap: 1.75rem;
   }
 
-  .contact__form-header {
-    padding: 2.5rem 1.25rem 1.25rem;
+  .contact__mero-features {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 
-  .contact__form-body,
-  .contact__form-footer {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
+  .mero-feature {
+    padding: 0.85rem;
   }
 
-  .contact__info h2 {
-    font-size: 1.5rem;
-  }
-
-  .contact__info-detail {
+  .contact__mero-desc {
     font-size: 0.82rem;
   }
-}
 
+  .contact__mero-btn {
+    font-size: 0.75rem;
+    padding: 1rem 1.5rem;
+  }
+}

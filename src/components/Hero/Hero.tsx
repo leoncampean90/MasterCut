@@ -75,7 +75,7 @@ const Hero: React.FC = () => {
         </h1>
 
         <div className="hero__actions">
-          <a href="#contact" className="btn-primary">Book Appointment</a>
+          <a href="https://mero.ro" target="_blank" rel="noopener noreferrer" className="btn-primary">Book on Mero</a>
           <a href="#services" className="btn-outline">Explore Services</a>
         </div>
       </div>

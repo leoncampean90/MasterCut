@@ -400,8 +400,13 @@ const Locations: React.FC = () => {
 
                 {/* CTA */}
                 <div className="loc-modal__cta">
-                  <a href="#contact" className="btn-primary" onClick={closeLocation}>
-                    Book at This Location
+                  <a
+                    href="https://mero.ro"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary"
+                  >
+                    Book on Mero
                   </a>
                   <a
                     href={activeLocation.mapUrl}

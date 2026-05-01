@@ -351,7 +351,7 @@ const Services: React.FC = () => {
                 <span className="showcase-card__price">{s.price}</span>
                 <h4 className="showcase-card__title">{s.title}</h4>
                 <p className="showcase-card__desc">{s.description}</p>
-                <a href="#contact" className="btn-primary showcase-card__book">Book Now</a>
+                <a href="https://mero.ro" target="_blank" rel="noopener noreferrer" className="btn-primary showcase-card__book">Book Now</a>
               </div>
             </div>
           ))}

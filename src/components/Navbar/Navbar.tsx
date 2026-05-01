@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Desktop CTA */}
-        <a href="#contact" className="btn-primary navbar__cta">Book Now</a>
+        <a href="https://mero.ro" target="_blank" rel="noopener noreferrer" className="btn-primary navbar__cta">Book Now</a>
 
         {/* Hamburger */}
         <button
@@ -68,7 +68,7 @@ const Navbar: React.FC = () => {
         {NAV_ITEMS.map(({ label, href }) => (
           <a key={href} href={href} onClick={closeMenu}>{label}</a>
         ))}
-        <a href="#contact" className="btn-primary" onClick={closeMenu}>Book Now</a>
+        <a href="https://mero.ro" target="_blank" rel="noopener noreferrer" className="btn-primary" onClick={closeMenu}>Book Now</a>
       </div>
     </>
   );

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './Contact.css';
 
 const IconPin = () => (
@@ -24,20 +23,6 @@ const IconClock = () => (
 );
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '', email: '', phone: '', service: '', location: '', date: '', time: '', message: '',
-  });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
-  ) => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert('Thank you! We will confirm your appointment shortly.');
-    setFormData({ name: '', email: '', phone: '', service: '', location: '', date: '', time: '', message: '' });
-  };
-
   return (
     <section className="contact" id="contact">
       <div className="contact__inner">
@@ -103,153 +88,109 @@ const Contact: React.FC = () => {
           </div>
         </div>
 
-        {/* ── Right form panel ── */}
-        <form className="contact__form" onSubmit={handleSubmit}>
-          <div className="contact__form-header">
-            <h3>Book an Appointment</h3>
-            <p>Fill in the details below and we'll confirm within 24 hours.</p>
-          </div>
+        {/* ── Right: Mero booking card ── */}
+        <div className="contact__mero">
 
-          <div className="contact__form-body">
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="name">Full Name</label>
-                <input id="name" name="name" type="text" placeholder="John Doe"
-                  value={formData.name} onChange={handleChange} required />
+          {/* Background texture layer */}
+          <div className="contact__mero-bg" aria-hidden="true" />
+
+          <div className="contact__mero-inner">
+
+            {/* Partner badge */}
+            <div className="contact__mero-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Official Booking Platform
+            </div>
+
+            {/* Mero logo — SVG wordmark */}
+            <a
+              href="https://mero.ro"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact__mero-logo"
+              aria-label="Book on Mero.ro"
+            >
+              <svg className="mero-logo__svg" viewBox="0 0 140 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="mero">
+                {/* "m" */}
+                <path d="M4 32V14h4l6 10 6-10h4v18h-4V21l-6 10-6-10v11H4Z" fill="white"/>
+                {/* "e" */}
+                <path d="M32 23c0-5.5 3.8-9.5 9-9.5s8.5 3.8 8.5 9v1.5H36.2c.4 2.5 2 4 4.8 4 1.8 0 3.4-.7 4.5-2l2.8 2.5C46.5 31 44 32.5 41 32.5c-5.5 0-9-3.8-9-9.5Zm4.3-1.5h9.2c-.3-2.3-1.8-3.8-4.4-3.8-2.5 0-4.2 1.4-4.8 3.8Z" fill="white"/>
+                {/* "r" */}
+                <path d="M54 32V14h4v3c1.2-2 3-3.5 5.5-3.5.7 0 1.3.1 1.8.3l-.5 4c-.6-.3-1.2-.4-1.8-.4-2.8 0-4.8 2-5 5.5V32h-4Z" fill="white"/>
+                {/* "o" */}
+                <path d="M67 23c0-5.5 4-9.5 9.5-9.5S86 17.5 86 23s-4 9.5-9.5 9.5S67 28.5 67 23Zm4.2 0c0 3.2 2 5.5 5.3 5.5s5.3-2.3 5.3-5.5-2-5.5-5.3-5.5-5.3 2.3-5.3 5.5Z" fill="white"/>
+                {/* ".ro" accent dot */}
+                <circle cx="96" cy="29" r="3" fill="#D4A843"/>
+                {/* "ro" text */}
+                <text x="103" y="32" fontFamily="Montserrat, sans-serif" fontSize="12" fontWeight="600" fill="rgba(255,255,255,0.5)" letterSpacing="0.5">ro</text>
+              </svg>
+            </a>
+
+            <p className="contact__mero-desc">
+              We've partnered with Mero — Romania's leading salon booking platform —
+              to offer you real-time scheduling, instant confirmations and full
+              control over your appointments.
+            </p>
+
+            {/* Feature grid */}
+            <div className="contact__mero-features">
+              <div className="mero-feature">
+                <div className="mero-feature__icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+                </div>
+                <div>
+                  <strong>Real-time slots</strong>
+                  <span>Always up-to-date availability</span>
+                </div>
               </div>
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input id="email" name="email" type="email" placeholder="john@example.com"
-                  value={formData.email} onChange={handleChange} required />
+              <div className="mero-feature">
+                <div className="mero-feature__icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                </div>
+                <div>
+                  <strong>Instant confirm</strong>
+                  <span>No waiting, no phone calls</span>
+                </div>
+              </div>
+              <div className="mero-feature">
+                <div className="mero-feature__icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+                </div>
+                <div>
+                  <strong>Pick your artist</strong>
+                  <span>Choose your preferred specialist</span>
+                </div>
+              </div>
+              <div className="mero-feature">
+                <div className="mero-feature__icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"/></svg>
+                </div>
+                <div>
+                  <strong>Smart reminders</strong>
+                  <span>Automatic SMS &amp; email alerts</span>
+                </div>
               </div>
             </div>
 
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="phone">Phone</label>
-                <input id="phone" name="phone" type="tel" placeholder="+1 (555) 000-0000"
-                  value={formData.phone} onChange={handleChange} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="location">Location</label>
-                <select id="location" name="location" value={formData.location}
-                  onChange={handleChange} required>
-                  <option value="">Select location</option>
-                  <option value="downtown">MasterCut Downtown</option>
-                  <option value="uptown">MasterCut Uptown</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="service">Service</label>
-              <select id="service" name="service" value={formData.service}
-                onChange={handleChange} required>
-                <option value="">Select a service</option>
-                <optgroup label="Barber">
-                  <option value="haircut">Classic Haircut</option>
-                  <option value="shave">Hot Towel Shave</option>
-                  <option value="beard">Beard Sculpting</option>
-                  <option value="royal">The Royal Treatment</option>
-                  <option value="color">Hair Coloring</option>
-                  <option value="scalp">Scalp Treatment</option>
-                </optgroup>
-                <optgroup label="Nails">
-                  <option value="manicure">Classic Manicure</option>
-                  <option value="gel-nails">Gel Nails</option>
-                  <option value="nail-art">Nail Art &amp; Design</option>
-                  <option value="pedicure">Spa Pedicure</option>
-                  <option value="acrylic">Acrylic Extensions</option>
-                  <option value="mani-pedi">Express Mani-Pedi</option>
-                </optgroup>
-                <optgroup label="Makeup">
-                  <option value="bridal">Bridal Makeup</option>
-                  <option value="evening">Evening Glam</option>
-                  <option value="natural">Natural Everyday Look</option>
-                  <option value="lesson">Makeup Lesson</option>
-                  <option value="lashes">Lash Extensions</option>
-                  <option value="brows">Brow Shaping &amp; Tint</option>
-                </optgroup>
-                <optgroup label="Cosmetic">
-                  <option value="facial">Deep Cleanse Facial</option>
-                  <option value="peel">Chemical Peel</option>
-                  <option value="microderm">Microdermabrasion</option>
-                  <option value="anti-aging">Anti-Aging Treatment</option>
-                  <option value="led">LED Light Therapy</option>
-                  <option value="hydrating">Hydrating Mask</option>
-                </optgroup>
-                <optgroup label="Massage">
-                  <option value="swedish">Swedish Massage</option>
-                  <option value="deep-tissue">Deep Tissue Massage</option>
-                  <option value="hot-stone">Hot Stone Therapy</option>
-                  <option value="aromatherapy">Aromatherapy Massage</option>
-                  <option value="couples">Couples Massage</option>
-                  <option value="head-shoulder">Head &amp; Shoulder Relief</option>
-                </optgroup>
-              </select>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="date">Preferred Date</label>
-                <input id="date" name="date" type="date"
-                  value={formData.date} onChange={handleChange} required />
-              </div>
-              <div className="form-group">
-                <label htmlFor="time">Preferred Time</label>
-                <select id="time" name="time" value={formData.time}
-                  onChange={handleChange} required>
-                  <option value="">Select a time slot</option>
-                  <optgroup label="Morning">
-                    <option value="09:00">9:00 AM</option>
-                    <option value="09:30">9:30 AM</option>
-                    <option value="10:00">10:00 AM</option>
-                    <option value="10:30">10:30 AM</option>
-                    <option value="11:00">11:00 AM</option>
-                    <option value="11:30">11:30 AM</option>
-                  </optgroup>
-                  <optgroup label="Afternoon">
-                    <option value="12:00">12:00 PM</option>
-                    <option value="12:30">12:30 PM</option>
-                    <option value="13:00">1:00 PM</option>
-                    <option value="13:30">1:30 PM</option>
-                    <option value="14:00">2:00 PM</option>
-                    <option value="14:30">2:30 PM</option>
-                    <option value="15:00">3:00 PM</option>
-                    <option value="15:30">3:30 PM</option>
-                    <option value="16:00">4:00 PM</option>
-                    <option value="16:30">4:30 PM</option>
-                  </optgroup>
-                  <optgroup label="Evening">
-                    <option value="17:00">5:00 PM</option>
-                    <option value="17:30">5:30 PM</option>
-                    <option value="18:00">6:00 PM</option>
-                    <option value="18:30">6:30 PM</option>
-                    <option value="19:00">7:00 PM</option>
-                    <option value="19:30">7:30 PM</option>
-                  </optgroup>
-                </select>
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="message">Notes <span className="form-optional">(optional)</span></label>
-              <textarea id="message" name="message"
-                placeholder="Any special requests, allergies, or preferences..."
-                value={formData.message} onChange={handleChange} />
-            </div>
-          </div>
-
-          <div className="contact__form-footer">
-            <button type="submit" className="contact__submit">
-              <span>Confirm Booking</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            {/* CTA */}
+            <a
+              href="https://mero.ro"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact__mero-btn"
+            >
+              <span>Book Your Appointment</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/>
               </svg>
-            </button>
-            <p className="contact__disclaimer">We'll confirm your appointment within 24 hours.</p>
+            </a>
+
+            <p className="contact__mero-note">
+              You'll be redirected to mero.ro — takes less than a minute.
+            </p>
+
           </div>
-        </form>
+        </div>
 
       </div>
     </section>
