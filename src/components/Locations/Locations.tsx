@@ -1,5 +1,6 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
 import './Locations.css';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface Location {
   name: string;
@@ -15,7 +16,8 @@ interface Location {
   gallery: { src: string; caption: string }[];
 }
 
-const LOCATIONS: Location[] = [
+/* Static (language-independent) data */
+const LOCATION_STATIC = [
   {
     name: 'MasterCut Downtown',
     address: '123 Barber Lane, Downtown District',
@@ -23,27 +25,15 @@ const LOCATIONS: Location[] = [
     email: 'downtown@mastercut.com',
     image: 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=1920&q=80',
     mapUrl: 'https://maps.google.com',
-    about:
-      'Located in the heart of the city, MasterCut Downtown is our flagship studio. Spanning over 3,000 sq ft across two floors, it combines old-world barbering craftsmanship with modern beauty science. From the moment you step through the door, you\'re greeted with the scent of premium oils and the sound of expertly wielded scissors.',
-    amenities: [
-      'Free Parking', 'Wi-Fi', 'Complimentary Drinks', 'Private Rooms',
-      'Accessibility', 'Online Booking', 'Gift Cards', 'Loyalty Program',
-    ],
-    hours: [
-      { day: 'Monday – Friday', time: '9:00 AM – 8:00 PM' },
-      { day: 'Saturday', time: '8:00 AM – 6:00 PM' },
-      { day: 'Sunday', time: '10:00 AM – 4:00 PM' },
-    ],
-    services: ['Barber', 'Nails', 'Makeup', 'Cosmetic', 'Massage'],
-    gallery: [
-      { src: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=900&q=80', caption: 'Barber Studio' },
-      { src: 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=900&q=80', caption: 'Main Floor' },
-      { src: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=900&q=80', caption: 'Classic Cuts' },
-      { src: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=900&q=80', caption: 'Nail Suite' },
-      { src: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=80', caption: 'Cosmetic Room' },
-      { src: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80', caption: 'Massage Suite' },
-      { src: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=900&q=80', caption: 'Makeup Studio' },
-      { src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=80', caption: 'Reception' },
+    gallerySrcs: [
+      'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=900&q=80',
+      'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=900&q=80',
+      'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=900&q=80',
+      'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=900&q=80',
+      'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=80',
+      'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80',
+      'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=900&q=80',
+      'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=80',
     ],
   },
   {
@@ -53,30 +43,18 @@ const LOCATIONS: Location[] = [
     email: 'uptown@mastercut.com',
     image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&q=80',
     mapUrl: 'https://maps.google.com',
-    about:
-      'MasterCut Uptown is our serene escape in the city\'s most refined neighbourhood. Designed with a minimalist aesthetic and bathed in natural light, every corner of this studio was thoughtfully conceived to provide the most relaxing, luxurious beauty experience possible. Our Uptown team are specialists in high-end cosmetic treatments and bespoke styling.',
-    amenities: [
-      'Valet Parking', 'Wi-Fi', 'Champagne Bar', 'Couples Suite',
-      'Rooftop Terrace', 'Online Booking', 'Gift Cards', 'VIP Membership',
-    ],
-    hours: [
-      { day: 'Monday – Friday', time: '10:00 AM – 9:00 PM' },
-      { day: 'Saturday', time: '9:00 AM – 7:00 PM' },
-      { day: 'Sunday', time: '10:00 AM – 5:00 PM' },
-    ],
-    services: ['Barber', 'Nails', 'Makeup', 'Cosmetic', 'Massage'],
-    gallery: [
-      { src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=80', caption: 'Reception Lounge' },
-      { src: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=900&q=80', caption: 'Bridal Suite' },
-      { src: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=900&q=80', caption: 'Hot Stone Room' },
-      { src: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=900&q=80', caption: 'Deep Tissue Suite' },
-      { src: 'https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=900&q=80', caption: 'Nail Artistry' },
-      { src: 'https://images.unsplash.com/photo-1593702288056-7927b442d0fa?w=900&q=80', caption: 'Grooming Suite' },
-      { src: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=900&q=80', caption: 'Colour Studio' },
-      { src: 'https://images.unsplash.com/photo-1540555700478-4be289fbec6b?w=900&q=80', caption: 'Aromatherapy Room' },
+    gallerySrcs: [
+      'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=80',
+      'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=900&q=80',
+      'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=900&q=80',
+      'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=900&q=80',
+      'https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=900&q=80',
+      'https://images.unsplash.com/photo-1593702288056-7927b442d0fa?w=900&q=80',
+      'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=900&q=80',
+      'https://images.unsplash.com/photo-1540555700478-4be289fbec6b?w=900&q=80',
     ],
   },
-];
+] as const;
 
 /* ── Scroll-reveal hook (bidirectional) ── */
 function useReveal() {
@@ -115,6 +93,26 @@ function useReveal() {
 }
 
 const Locations: React.FC = () => {
+  const { t } = useLanguage();
+  const lc = t.locations;
+
+  const LOCATIONS: Location[] = LOCATION_STATIC.map((s, i) => {
+    const td = lc.locationData[i];
+    return {
+      name: s.name,
+      address: s.address,
+      phone: s.phone,
+      email: s.email,
+      image: s.image,
+      mapUrl: s.mapUrl,
+      about: td.about,
+      amenities: [...td.amenities],
+      hours: td.hours.map((h) => ({ ...h })),
+      services: [...td.services],
+      gallery: s.gallerySrcs.map((src, j) => ({ src, caption: td.galleryCaptions[j] })),
+    };
+  });
+
   const ref = useReveal();
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeLocation, setActiveLocation] = useState<Location | null>(null);
@@ -174,11 +172,9 @@ const Locations: React.FC = () => {
     <section className="locations" id="locations">
       {/* Section header */}
       <div className="container locations__header">
-        <h2 className="section-title">Our Locations</h2>
+        <h2 className="section-title">{lc.sectionTitle}</h2>
         <div className="gold-line" />
-        <p className="section-subtitle">
-          Two premium studios — choose the one closest to you
-        </p>
+        <p className="section-subtitle">{lc.sectionSubtitle}</p>
       </div>
 
       {/* Full-width location panels */}
@@ -226,7 +222,7 @@ const Locations: React.FC = () => {
 
             {/* Row 3 — Opening hours */}
             <div className="loc-panel__block" ref={ref()}>
-              <h4 className="loc-panel__sub-title">Opening Hours</h4>
+              <h4 className="loc-panel__sub-title">{lc.hoursTitle}</h4>
               <div className="loc-panel__hours">
                 {loc.hours.map(({ day, time }) => (
                   <div className="loc-panel__hours-row" key={day}>
@@ -239,7 +235,7 @@ const Locations: React.FC = () => {
 
             {/* Row 4 — Services */}
             <div className="loc-panel__block" ref={ref()}>
-              <h4 className="loc-panel__sub-title">Available Services</h4>
+              <h4 className="loc-panel__sub-title">{lc.servicesTitle}</h4>
               <div className="loc-panel__tags">
                 {loc.services.map((s) => (
                   <span className="loc-panel__tag" key={s}>{s}</span>
@@ -254,7 +250,7 @@ const Locations: React.FC = () => {
                   className="btn-primary"
                   onClick={() => openLocation(loc)}
                 >
-                  Explore Location
+                  {lc.exploreBtn}
                 </button>
                 <a
                   href={loc.mapUrl}
@@ -262,7 +258,7 @@ const Locations: React.FC = () => {
                   rel="noopener noreferrer"
                   className="btn-outline"
                 >
-                  Get Directions
+                  {lc.getDirections}
                 </a>
               </div>
             </div>
@@ -339,13 +335,13 @@ const Locations: React.FC = () => {
               <div className="loc-modal__details">
                 {/* About */}
                 <div className="loc-modal__section">
-                  <h4 className="loc-modal__section-title">About This Studio</h4>
+                  <h4 className="loc-modal__section-title">{lc.aboutTitle}</h4>
                   <p className="loc-modal__about">{activeLocation.about}</p>
                 </div>
 
                 {/* Contact */}
                 <div className="loc-modal__section">
-                  <h4 className="loc-modal__section-title">Contact & Location</h4>
+                  <h4 className="loc-modal__section-title">{lc.contactTitle}</h4>
                   <div className="loc-modal__contacts">
                     <div className="loc-modal__contact-row">
                       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
@@ -364,7 +360,7 @@ const Locations: React.FC = () => {
 
                 {/* Hours */}
                 <div className="loc-modal__section">
-                  <h4 className="loc-modal__section-title">Opening Hours</h4>
+                  <h4 className="loc-modal__section-title">{lc.hoursTitle}</h4>
                   <div className="loc-modal__hours">
                     {activeLocation.hours.map(({ day, time }) => (
                       <div className="loc-modal__hours-row" key={day}>
@@ -377,7 +373,7 @@ const Locations: React.FC = () => {
 
                 {/* Amenities */}
                 <div className="loc-modal__section">
-                  <h4 className="loc-modal__section-title">Amenities</h4>
+                  <h4 className="loc-modal__section-title">{lc.amenitiesTitle}</h4>
                   <div className="loc-modal__amenities">
                     {activeLocation.amenities.map((a) => (
                       <span className="loc-modal__amenity" key={a}>
@@ -390,7 +386,7 @@ const Locations: React.FC = () => {
 
                 {/* Services */}
                 <div className="loc-modal__section">
-                  <h4 className="loc-modal__section-title">Available Services</h4>
+                  <h4 className="loc-modal__section-title">{lc.servicesTitle}</h4>
                   <div className="loc-modal__tags">
                     {activeLocation.services.map((s) => (
                       <span className="loc-panel__tag" key={s}>{s}</span>
@@ -406,7 +402,7 @@ const Locations: React.FC = () => {
                     rel="noopener noreferrer"
                     className="btn-primary"
                   >
-                    Book on Mero
+                    {lc.modalBookBtn}
                   </a>
                   <a
                     href={activeLocation.mapUrl}
@@ -414,7 +410,7 @@ const Locations: React.FC = () => {
                     rel="noopener noreferrer"
                     className="btn-outline"
                   >
-                    Get Directions
+                    {lc.getDirections}
                   </a>
                 </div>
               </div>

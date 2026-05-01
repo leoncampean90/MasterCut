@@ -1,36 +1,9 @@
 import './Testimonials.css';
+import { useLanguage } from '../../contexts/LanguageContext';
 
-interface Testimonial {
-  name: string;
-  initials: string;
-  role: string;
-  stars: number;
-  text: string;
-}
-
-const TESTIMONIALS: Testimonial[] = [
-  {
-    name: 'James Whitfield',
-    initials: 'JW',
-    role: 'Regular Client – Barber',
-    stars: 5,
-    text: 'MasterCut is in a league of its own. The attention to detail on my haircut and the atmosphere make every visit a genuine experience. Wouldn\'t go anywhere else.',
-  },
-  {
-    name: 'Maria Santos',
-    initials: 'MS',
-    role: 'Client – Nails & Makeup',
-    stars: 5,
-    text: 'The nail artists here are incredibly creative, and the bridal makeup trial was flawless. I booked them for my entire wedding party!',
-  },
-  {
-    name: 'David Chen',
-    initials: 'DC',
-    role: 'Client – Massage & Cosmetic',
-    stars: 5,
-    text: 'The deep tissue massage followed by a rejuvenating facial — absolute heaven. Both locations are beautifully maintained and the staff is top-notch.',
-  },
-];
+const NAMES = ['James Whitfield', 'Maria Santos', 'David Chen'];
+const INITIALS = ['JW', 'MS', 'DC'];
+const STARS = [5, 5, 5];
 
 const Stars: React.FC<{ count: number }> = ({ count }) => (
   <div className="testimonial-card__stars">
@@ -38,31 +11,35 @@ const Stars: React.FC<{ count: number }> = ({ count }) => (
   </div>
 );
 
-const Testimonials: React.FC = () => (
-  <section className="testimonials" id="testimonials">
-    <div className="container">
-      <h2 className="section-title">What Clients Say</h2>
-      <div className="gold-line" />
-      <p className="section-subtitle">Real reviews from our valued patrons</p>
+const Testimonials: React.FC = () => {
+  const { t } = useLanguage();
 
-      <div className="testimonials__grid">
-        {TESTIMONIALS.map((t) => (
-          <div className="testimonial-card" key={t.name}>
-            <span className="testimonial-card__quote">"</span>
-            <Stars count={t.stars} />
-            <p className="testimonial-card__text">{t.text}</p>
-            <div className="testimonial-card__author">
-              <div className="testimonial-card__avatar">{t.initials}</div>
-              <div>
-                <div className="testimonial-card__name">{t.name}</div>
-                <div className="testimonial-card__role">{t.role}</div>
+  return (
+    <section className="testimonials" id="testimonials">
+      <div className="container">
+        <h2 className="section-title">{t.testimonials.title}</h2>
+        <div className="gold-line" />
+        <p className="section-subtitle">{t.testimonials.subtitle}</p>
+
+        <div className="testimonials__grid">
+          {t.testimonials.items.map((item, i) => (
+            <div className="testimonial-card" key={NAMES[i]}>
+              <span className="testimonial-card__quote">&quot;</span>
+              <Stars count={STARS[i]} />
+              <p className="testimonial-card__text">{item.text}</p>
+              <div className="testimonial-card__author">
+                <div className="testimonial-card__avatar">{INITIALS[i]}</div>
+                <div>
+                  <div className="testimonial-card__name">{NAMES[i]}</div>
+                  <div className="testimonial-card__role">{item.role}</div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default Testimonials;
