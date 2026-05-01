@@ -4,7 +4,7 @@ import translations, { type Lang } from '../i18n/translations';
 
 interface LanguageContextValue {
   lang: Lang;
-  t: typeof translations['ro'];
+  t: typeof translations[Lang];
   toggleLang: () => void;
   langSwitch: string;
 }
