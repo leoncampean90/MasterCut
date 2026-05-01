@@ -388,6 +388,9 @@
 
   .hero__scroll-indicator {
     display: flex;
+    bottom: 0.9rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
