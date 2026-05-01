@@ -18,8 +18,8 @@
   width: 100%;
   aspect-ratio: 4/5;
   background: linear-gradient(145deg, var(--black-card), var(--black));
-  border-radius: 12px;
-  border: 1px solid rgba(212, 168, 67, 0.15);
+  border-radius: 0;
+  border: 1px solid rgba(212,168,67,0.12);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,9 +55,9 @@
   background: linear-gradient(135deg, var(--gold-dark), var(--gold));
   color: var(--black);
   padding: 1.5rem;
-  border-radius: 12px;
+  border-radius: 0;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .about__experience-badge .number {
@@ -145,4 +145,89 @@
   .about__text p {
     text-align: center;
   }
+}
+
+@media (max-width: 480px) {
+  .about__image-placeholder {
+    aspect-ratio: 16/12;
+  }
+
+  .about__experience-badge {
+    right: 0.5rem;
+    bottom: 0.5rem;
+    padding: 1rem;
+  }
+
+  .about__experience-badge .number {
+    font-size: 1.8rem;
+  }
+
+  .about__experience-badge .label {
+    font-size: 0.6rem;
+  }
+
+  .about__stats {
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .about__stat {
+    min-width: calc(50% - 0.75rem);
+  }
+
+  .about__text p {
+    font-size: 0.9rem;
+  }
+}
+
+/* ── About 3D + Futuristic Enhancements ── */
+
+/* Image block: 3D depth card feel */
+.about__image-block {
+  perspective: 1000px;
+  transition: transform 0.5s ease;
+}
+.about__image-block:hover .about__image-placeholder {
+  transform: perspective(1000px) rotateY(-4deg) rotateX(2deg) scale(1.02);
+  box-shadow: 12px 12px 40px rgba(0,0,0,0.5), -4px 4px 20px rgba(212,168,67,0.08);
+}
+.about__image-placeholder {
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.5s ease;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Scanning light effect over image */
+.about__image-placeholder::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(180deg, transparent, rgba(212,168,67,0.06), transparent);
+  animation: image-scan 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+@keyframes image-scan {
+  0%   { top: -40%; opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { top: 120%; opacity: 0; }
+}
+
+/* Experience badge: subtle float */
+.about__experience-badge {
+  animation: float-badge 5s ease-in-out infinite;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+@keyframes float-badge {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+/* Stat values: hover-only glow */
+.about__stat .value {
+  transition: text-shadow 0.3s ease;
 }

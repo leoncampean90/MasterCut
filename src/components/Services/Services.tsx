@@ -286,35 +286,13 @@ const Services: React.FC = () => {
 
   return (
     <section className="services" id="services">
+      {/* ── Section header ── */}
       <div className="container">
         <h2 className="section-title">Our Services</h2>
         <div className="gold-line" />
         <p className="section-subtitle">
           Choose a category to explore our treatments
         </p>
-
-        {/* ── Photo Buttons (category picker) ── */}
-        {activeCategory === null && (
-          <div className="services__picker">
-            {CATEGORIES.map((cat, i) => (
-              <button
-                key={cat.key}
-                className="services__photo-btn"
-                onClick={() => handleSelect(i)}
-              >
-                <img
-                  src={cat.photo}
-                  alt={cat.label}
-                  className="services__photo-btn-img"
-                  loading="lazy"
-                />
-                <div className="services__photo-btn-overlay">
-                  <span className="services__photo-btn-label">{cat.label}</span>
-                </div>
-              </button>
-            ))}
-          </div>
-        )}
 
         {/* ── Detail header (inside container) ── */}
         {category && (
@@ -331,6 +309,32 @@ const Services: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* ── Photo Buttons — full-width outside container ── */}
+      {activeCategory === null && (
+        <div className="services__picker">
+          {CATEGORIES.map((cat, i) => (
+            <button
+              key={cat.key}
+              className="services__photo-btn"
+              onClick={() => handleSelect(i)}
+            >
+              <img
+                src={cat.photo}
+                alt={cat.label}
+                className="services__photo-btn-img"
+                loading="lazy"
+              />
+              <div className="services__photo-btn-overlay">
+                <div className="services__photo-btn-footer">
+                  <span className="services__photo-btn-label">{cat.label}</span>
+                  <span className="services__photo-btn-desc">{cat.description}</span>
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* ── Full-width showcase cards (outside container) ── */}
       {category && (

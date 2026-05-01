@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 import './Locations.css';
 
 interface Location {
@@ -10,6 +10,9 @@ interface Location {
   mapUrl: string;
   hours: { day: string; time: string }[];
   services: string[];
+  about: string;
+  amenities: string[];
+  gallery: { src: string; caption: string }[];
 }
 
 const LOCATIONS: Location[] = [
@@ -20,12 +23,28 @@ const LOCATIONS: Location[] = [
     email: 'downtown@mastercut.com',
     image: 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=1920&q=80',
     mapUrl: 'https://maps.google.com',
+    about:
+      'Located in the heart of the city, MasterCut Downtown is our flagship studio. Spanning over 3,000 sq ft across two floors, it combines old-world barbering craftsmanship with modern beauty science. From the moment you step through the door, you\'re greeted with the scent of premium oils and the sound of expertly wielded scissors.',
+    amenities: [
+      'Free Parking', 'Wi-Fi', 'Complimentary Drinks', 'Private Rooms',
+      'Accessibility', 'Online Booking', 'Gift Cards', 'Loyalty Program',
+    ],
     hours: [
       { day: 'Monday – Friday', time: '9:00 AM – 8:00 PM' },
       { day: 'Saturday', time: '8:00 AM – 6:00 PM' },
       { day: 'Sunday', time: '10:00 AM – 4:00 PM' },
     ],
     services: ['Barber', 'Nails', 'Makeup', 'Cosmetic', 'Massage'],
+    gallery: [
+      { src: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=900&q=80', caption: 'Barber Studio' },
+      { src: 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=900&q=80', caption: 'Main Floor' },
+      { src: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=900&q=80', caption: 'Classic Cuts' },
+      { src: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=900&q=80', caption: 'Nail Suite' },
+      { src: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=80', caption: 'Cosmetic Room' },
+      { src: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80', caption: 'Massage Suite' },
+      { src: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=900&q=80', caption: 'Makeup Studio' },
+      { src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=80', caption: 'Reception' },
+    ],
   },
   {
     name: 'MasterCut Uptown',
@@ -34,12 +53,28 @@ const LOCATIONS: Location[] = [
     email: 'uptown@mastercut.com',
     image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&q=80',
     mapUrl: 'https://maps.google.com',
+    about:
+      'MasterCut Uptown is our serene escape in the city\'s most refined neighbourhood. Designed with a minimalist aesthetic and bathed in natural light, every corner of this studio was thoughtfully conceived to provide the most relaxing, luxurious beauty experience possible. Our Uptown team are specialists in high-end cosmetic treatments and bespoke styling.',
+    amenities: [
+      'Valet Parking', 'Wi-Fi', 'Champagne Bar', 'Couples Suite',
+      'Rooftop Terrace', 'Online Booking', 'Gift Cards', 'VIP Membership',
+    ],
     hours: [
       { day: 'Monday – Friday', time: '10:00 AM – 9:00 PM' },
       { day: 'Saturday', time: '9:00 AM – 7:00 PM' },
       { day: 'Sunday', time: '10:00 AM – 5:00 PM' },
     ],
     services: ['Barber', 'Nails', 'Makeup', 'Cosmetic', 'Massage'],
+    gallery: [
+      { src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=80', caption: 'Reception Lounge' },
+      { src: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=900&q=80', caption: 'Bridal Suite' },
+      { src: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=900&q=80', caption: 'Hot Stone Room' },
+      { src: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=900&q=80', caption: 'Deep Tissue Suite' },
+      { src: 'https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=900&q=80', caption: 'Nail Artistry' },
+      { src: 'https://images.unsplash.com/photo-1593702288056-7927b442d0fa?w=900&q=80', caption: 'Grooming Suite' },
+      { src: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=900&q=80', caption: 'Colour Studio' },
+      { src: 'https://images.unsplash.com/photo-1540555700478-4be289fbec6b?w=900&q=80', caption: 'Aromatherapy Room' },
+    ],
   },
 ];
 
@@ -82,6 +117,27 @@ function useReveal() {
 const Locations: React.FC = () => {
   const ref = useReveal();
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeLocation, setActiveLocation] = useState<Location | null>(null);
+  const [activePhoto, setActivePhoto] = useState<number>(0);
+
+  const openLocation = (loc: Location) => {
+    setActiveLocation(loc);
+    setActivePhoto(0);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeLocation = () => {
+    setActiveLocation(null);
+    document.body.style.overflow = '';
+  };
+
+  // Close on Escape key
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeLocation(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Scroll-driven cross-fade: as panel[i] enters, fade its photo IN
   // while simultaneously fading panel[i-1]'s photo and text OUT
@@ -154,15 +210,15 @@ const Locations: React.FC = () => {
             <div className="loc-panel__block" ref={ref()}>
               <div className="loc-panel__details">
                 <div className="loc-panel__detail">
-                  <span className="loc-panel__icon">📍</span>
+                  <svg className="loc-panel__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
                   <span>{loc.address}</span>
                 </div>
                 <div className="loc-panel__detail">
-                  <span className="loc-panel__icon">📞</span>
+                  <svg className="loc-panel__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
                   <span>{loc.phone}</span>
                 </div>
                 <div className="loc-panel__detail">
-                  <span className="loc-panel__icon">✉️</span>
+                  <svg className="loc-panel__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
                   <span>{loc.email}</span>
                 </div>
               </div>
@@ -194,7 +250,12 @@ const Locations: React.FC = () => {
             {/* Row 5 — Actions */}
             <div className="loc-panel__block" ref={ref()}>
               <div className="loc-panel__actions">
-                <a href="#contact" className="btn-primary">Book Here</a>
+                <button
+                  className="btn-primary"
+                  onClick={() => openLocation(loc)}
+                >
+                  Explore Location
+                </button>
                 <a
                   href={loc.mapUrl}
                   target="_blank"
@@ -208,6 +269,154 @@ const Locations: React.FC = () => {
           </div>
         </div>
       ))}
+
+      {/* ── Location Explorer Modal ── */}
+      {activeLocation && (
+        <div
+          className={`loc-modal ${activeLocation ? 'loc-modal--open' : ''}`}
+          onClick={(e) => { if (e.target === e.currentTarget) closeLocation(); }}
+        >
+          <div className="loc-modal__panel">
+            {/* Header */}
+            <div className="loc-modal__header">
+              <div>
+                <p className="loc-modal__label">MasterCut Studio</p>
+                <h2 className="loc-modal__title">{activeLocation.name}</h2>
+              </div>
+              <button className="loc-modal__close" onClick={closeLocation} aria-label="Close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="loc-modal__body">
+              {/* ── Main photo + gallery ── */}
+              <div className="loc-modal__gallery">
+                <div className="loc-modal__gallery-main">
+                  <img
+                    src={activeLocation.gallery[activePhoto].src}
+                    alt={activeLocation.gallery[activePhoto].caption}
+                    className="loc-modal__gallery-main-img"
+                  />
+                  <span className="loc-modal__gallery-caption">
+                    {activeLocation.gallery[activePhoto].caption}
+                  </span>
+                  <span className="loc-modal__gallery-counter">
+                    {activePhoto + 1} / {activeLocation.gallery.length}
+                  </span>
+                  <button
+                    className="loc-modal__gallery-nav loc-modal__gallery-nav--prev"
+                    onClick={() => setActivePhoto(p => (p - 1 + activeLocation.gallery.length) % activeLocation.gallery.length)}
+                    aria-label="Previous"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
+                  </button>
+                  <button
+                    className="loc-modal__gallery-nav loc-modal__gallery-nav--next"
+                    onClick={() => setActivePhoto(p => (p + 1) % activeLocation.gallery.length)}
+                    aria-label="Next"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+                  </button>
+                </div>
+
+                {/* Thumbnail strip */}
+                <div className="loc-modal__thumbs">
+                  {activeLocation.gallery.map((img, idx) => (
+                    <button
+                      key={idx}
+                      className={`loc-modal__thumb ${idx === activePhoto ? 'loc-modal__thumb--active' : ''}`}
+                      onClick={() => setActivePhoto(idx)}
+                    >
+                      <img src={img.src} alt={img.caption} loading="lazy" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* ── Details column ── */}
+              <div className="loc-modal__details">
+                {/* About */}
+                <div className="loc-modal__section">
+                  <h4 className="loc-modal__section-title">About This Studio</h4>
+                  <p className="loc-modal__about">{activeLocation.about}</p>
+                </div>
+
+                {/* Contact */}
+                <div className="loc-modal__section">
+                  <h4 className="loc-modal__section-title">Contact & Location</h4>
+                  <div className="loc-modal__contacts">
+                    <div className="loc-modal__contact-row">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
+                      <span>{activeLocation.address}</span>
+                    </div>
+                    <div className="loc-modal__contact-row">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
+                      <span>{activeLocation.phone}</span>
+                    </div>
+                    <div className="loc-modal__contact-row">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+                      <span>{activeLocation.email}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Hours */}
+                <div className="loc-modal__section">
+                  <h4 className="loc-modal__section-title">Opening Hours</h4>
+                  <div className="loc-modal__hours">
+                    {activeLocation.hours.map(({ day, time }) => (
+                      <div className="loc-modal__hours-row" key={day}>
+                        <span>{day}</span>
+                        <span className="loc-modal__hours-time">{time}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Amenities */}
+                <div className="loc-modal__section">
+                  <h4 className="loc-modal__section-title">Amenities</h4>
+                  <div className="loc-modal__amenities">
+                    {activeLocation.amenities.map((a) => (
+                      <span className="loc-modal__amenity" key={a}>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        {a}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Services */}
+                <div className="loc-modal__section">
+                  <h4 className="loc-modal__section-title">Available Services</h4>
+                  <div className="loc-modal__tags">
+                    {activeLocation.services.map((s) => (
+                      <span className="loc-panel__tag" key={s}>{s}</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <div className="loc-modal__cta">
+                  <a href="#contact" className="btn-primary" onClick={closeLocation}>
+                    Book at This Location
+                  </a>
+                  <a
+                    href={activeLocation.mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline"
+                  >
+                    Get Directions
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

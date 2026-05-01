@@ -1,7 +1,7 @@
 .footer {
-  background: var(--black-light);
-  border-top: 1px solid rgba(212, 168, 67, 0.1);
-  padding: 3rem 2rem 1.5rem;
+  background: rgba(8,8,8,0.99);
+  border-top: 1px solid rgba(212,168,67,0.1);
+  padding: 4rem 3rem 2rem;
 }
 
 .footer__top {
@@ -21,11 +21,11 @@
 }
 
 .footer__brand p {
-  color: var(--gray);
-  font-size: 0.88rem;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.85rem;
   font-weight: 300;
-  line-height: 1.7;
-  max-width: 300px;
+  line-height: 1.75;
+  max-width: 280px;
 }
 
 .footer__socials {
@@ -34,15 +34,16 @@
   margin-top: 1.5rem;
 }
 
+/* Social links: lift + gold fill */
 .footer__social-link {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(212, 168, 67, 0.2);
+  width: 36px;
+  height: 36px;
+  border-radius: 0;
+  border: 1px solid rgba(212,168,67,0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: 0.9rem;
   transition: var(--transition-fast);
 }
 
@@ -51,14 +52,16 @@
   color: var(--black);
   border-color: var(--gold);
   transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(212,168,67,0.3);
 }
 
 .footer__col h4 {
-  font-size: 0.9rem;
+  font-size: 0.65rem;
   color: var(--gold);
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.4rem;
+  opacity: 0.8;
 }
 
 .footer__col ul {
@@ -88,37 +91,43 @@
 .footer__newsletter-form {
   display: flex;
   gap: 0;
+  border: 1px solid rgba(212,168,67,0.15);
 }
 
 .footer__newsletter-form input {
   flex: 1;
   padding: 0.7rem 1rem;
-  background: var(--black);
-  border: 1px solid rgba(212, 168, 67, 0.2);
-  border-right: none;
-  border-radius: 6px 0 0 6px;
+  background: transparent;
+  border: none;
   color: var(--white);
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+}
+
+.footer__newsletter-form input::placeholder {
+  color: rgba(255,255,255,0.25);
 }
 
 .footer__newsletter-form input:focus {
   outline: none;
-  border-color: var(--gold);
 }
 
 .footer__newsletter-form button {
   padding: 0.7rem 1.2rem;
-  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-  color: var(--black);
-  font-weight: 700;
-  font-size: 1rem;
-  border-radius: 0 6px 6px 0;
+  background: rgba(212,168,67,0.15);
+  border: none;
+  border-left: 1px solid rgba(212,168,67,0.2);
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
   transition: var(--transition-fast);
 }
 
 .footer__newsletter-form button:hover {
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  background: var(--gold);
+  color: var(--black);
 }
 
 .footer__bottom {
@@ -159,13 +168,19 @@
 }
 
 @media (max-width: 480px) {
+  .footer {
+    padding: 3rem 1.25rem 1.5rem;
+  }
+
   .footer__top {
     grid-template-columns: 1fr;
     text-align: center;
+    gap: 2rem;
   }
 
   .footer__brand p {
     max-width: 100%;
+    margin: 0 auto;
   }
 
   .footer__socials {
@@ -174,20 +189,72 @@
 
   .footer__newsletter-form {
     flex-direction: column;
-    gap: 0.5rem;
   }
 
   .footer__newsletter-form input {
-    border-right: 1px solid rgba(212, 168, 67, 0.2);
-    border-radius: 6px;
+    border: 1px solid rgba(212,168,67,0.15);
+    padding: 0.75rem 1rem;
   }
 
   .footer__newsletter-form button {
-    border-radius: 6px;
+    border: none;
+    border-top: 1px solid rgba(212,168,67,0.15);
+    padding: 0.75rem 1rem;
+    background: rgba(212,168,67,0.12);
   }
 
   .footer__bottom {
     justify-content: center;
     text-align: center;
+    flex-direction: column;
+    gap: 0.5rem;
   }
+
+  .footer__col ul li a {
+    font-size: 0.85rem;
+  }
+}
+
+/* ── Footer 3D + Futuristic Enhancements ── */
+
+/* Footer: grid ambient background */
+.footer {
+  background-image:
+    linear-gradient(rgba(212,168,67,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,168,67,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  position: relative;
+}
+
+/* Top edge: glowing separator */
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,168,67,0.4), transparent);
+}
+
+/* Brand name: text glow */
+.footer__brand-name {
+  text-shadow: 0 0 30px rgba(212,168,67,0.25);
+}
+
+/* Social links: simple hover override */
+.footer__social-link:hover {
+  background: var(--gold);
+  color: var(--black);
+  border-color: var(--gold);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(212,168,67,0.3);
+}
+
+/* Newsletter button: subtle glow */
+.footer__newsletter-form button:hover {
+  box-shadow: 0 0 12px rgba(212,168,67,0.3);
+}
+
+/* Footer links: clean hover */
+.footer__col ul li a:hover {
+  color: var(--gold);
 }

@@ -1,19 +1,26 @@
 .services {
-  padding: var(--section-padding);
+  padding: 6rem 0 0;
   background: var(--black);
 }
 
+.services > .container {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 3rem;
+}
+
 /* ═══════════════════════════════════════
-   Photo-Button Category Picker
+   Full-width Category Picker
    ═══════════════════════════════════════ */
 .services__picker {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1.5rem;
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
+  display: flex;
+  width: 100%;
+  height: 65vh;
+  min-height: 440px;
+  max-height: 680px;
+  gap: 2px;
   animation: fadeIn 0.5s ease;
+  background: var(--black);
 }
 
 @keyframes fadeIn {
@@ -23,73 +30,82 @@
 
 .services__photo-btn {
   position: relative;
-  border: 2px solid rgba(212, 168, 67, 0.12);
-  border-radius: 16px;
+  flex: 1;
   overflow: hidden;
   cursor: pointer;
   background: none;
   padding: 0;
-  aspect-ratio: 2 / 3;
-  z-index: 1;
-  transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease, z-index 0s;
+  border: none;
+  border-bottom: 2px solid transparent;
+  transition: flex 0.55s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
 }
 
 .services__photo-btn:hover {
-  border-color: var(--gold);
-  transform: translateY(-6px) scale(1.02);
-  box-shadow:
-    0 0 40px rgba(212, 168, 67, 0.15),
-    0 20px 50px rgba(0, 0, 0, 0.5);
-  z-index: 3;
+  flex: 2.2;
+  border-bottom-color: var(--gold);
 }
 
 .services__photo-btn-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.45) saturate(0.85);
+  object-position: center;
+  filter: brightness(0.38) saturate(0.8);
   transition: filter 0.5s ease, transform 0.6s ease;
+  display: block;
 }
 
 .services__photo-btn:hover .services__photo-btn-img {
-  filter: brightness(0.65) saturate(1);
-  transform: scale(1.08);
+  filter: brightness(0.55) saturate(1);
+  transform: scale(1.06);
 }
 
 .services__photo-btn-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    transparent 30%,
-    rgba(10, 10, 10, 0.9) 100%
-  );
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: flex-end;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem 1.25rem;
+  background: linear-gradient(180deg, rgba(10,10,10,0.12) 0%, transparent 30%, rgba(10,10,10,0.7) 100%);
   pointer-events: none;
 }
 
-.services__photo-btn-icon {
-  font-size: 2.4rem;
-  margin-bottom: 0.6rem;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
-  transition: transform 0.35s ease;
-}
-
-.services__photo-btn:hover .services__photo-btn-icon {
-  transform: scale(1.15);
+.services__photo-btn-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
 .services__photo-btn-label {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
-  color: var(--gold);
-  letter-spacing: 2px;
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
+  color: var(--white);
+  letter-spacing: 3px;
   text-transform: uppercase;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+  line-height: 1.1;
+  transition: color 0.3s ease;
+}
+
+.services__photo-btn:hover .services__photo-btn-label {
+  color: var(--gold-light);
+}
+
+.services__photo-btn-desc {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.5px;
+  font-weight: 300;
+  max-width: 220px;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease 0.05s, transform 0.4s ease 0.05s;
+}
+
+.services__photo-btn:hover .services__photo-btn-desc {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ═══════════════════════════════════════
@@ -116,18 +132,18 @@
   align-items: center;
   gap: 0.5rem;
   background: none;
-  border: 2px solid rgba(212, 168, 67, 0.2);
-  border-radius: 50px;
+  border: 1px solid rgba(212, 168, 67, 0.2);
   color: var(--gold);
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 500;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   padding: 0.6rem 1.4rem;
   cursor: pointer;
   transition: var(--transition-fast);
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  border-radius: 0;
 }
 
 .services__back:hover {
@@ -339,13 +355,8 @@
    ═══════════════════════════════════════ */
 @media (max-width: 1024px) {
   .services__picker {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-  }
-
-  /* Center the last orphan when 5 items in 3-col grid */
-  .services__picker .services__photo-btn:last-child:nth-child(3n - 1) {
-    grid-column: 2 / 3;
+    height: 55vh;
+    min-height: 380px;
   }
 
   .showcase-card__content {
@@ -354,24 +365,47 @@
 }
 
 @media (max-width: 768px) {
+  .services {
+    padding-top: 4rem;
+  }
+
+  .services > .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
   .services__picker {
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
+    grid-template-rows: repeat(2, 1fr);
+    height: auto;
+    min-height: unset;
+    max-height: unset;
+    gap: 2px;
+  }
+
+  /* 5th button spans 2 cols */
+  .services__photo-btn:last-child {
+    grid-column: 2 / 4;
   }
 
   .services__photo-btn {
-    border-radius: 12px;
-    aspect-ratio: 3 / 4;
-    min-height: unset;
+    height: 200px;
+    flex: unset;
   }
 
-  .services__photo-btn-icon {
-    font-size: 1.8rem;
+  /* disable flex expansion on mobile (grid overrides) */
+  .services__photo-btn:hover {
+    flex: unset;
+  }
+
+  .services__photo-btn-desc {
+    display: none;
   }
 
   .services__photo-btn-label {
-    font-size: 0.85rem;
-    letter-spacing: 1px;
+    font-size: 0.95rem;
+    letter-spacing: 2px;
   }
 
   .showcase-card {
@@ -380,7 +414,7 @@
   }
 
   .showcase-card__content {
-    padding: 2rem 2rem;
+    padding: 2rem;
     max-width: 100%;
   }
 
@@ -394,33 +428,20 @@
 @media (max-width: 480px) {
   .services__picker {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.6rem;
+    grid-template-rows: auto;
   }
 
-  /* 5th item: span full width and center itself */
-  .services__picker .services__photo-btn:last-child:nth-child(odd) {
+  .services__photo-btn:last-child {
     grid-column: 1 / -1;
-    max-width: calc(50% - 0.3rem);
-    margin-inline: auto;
   }
 
   .services__photo-btn {
-    min-height: unset;
-    aspect-ratio: 2 / 3;
-  }
-
-  .services__photo-btn-overlay {
-    padding: 1rem 0.6rem;
-  }
-
-  .services__photo-btn-icon {
-    font-size: 1.6rem;
-    margin-bottom: 0.3rem;
+    height: 160px;
   }
 
   .services__photo-btn-label {
-    font-size: 0.8rem;
-    letter-spacing: 1px;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
   }
 
   .showcase-card {
@@ -444,4 +465,35 @@
     padding: 0.65rem 1.5rem;
     font-size: 0.8rem;
   }
+}
+
+/* Showcase cards: gold corner accent on reveal */
+.showcase-card::before {
+  content: '';
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: 28px;
+  height: 28px;
+  border-top: 1px solid rgba(212,168,67,0.5);
+  border-left: 1px solid rgba(212,168,67,0.5);
+  z-index: 3;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  opacity: 0;
+}
+.showcase-card.revealed::before {
+  opacity: 1;
+}
+
+/* Showcase card hover depth */
+.showcase-card:hover {
+  box-shadow: 0 0 50px rgba(212,168,67,0.06), 0 30px 60px rgba(0,0,0,0.5);
+}
+
+/* Back button hover */
+.services__back:hover {
+  background: var(--gold);
+  color: var(--black);
+  border-color: var(--gold);
 }

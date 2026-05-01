@@ -12,7 +12,7 @@
 .testimonial-card {
   background: var(--black-card);
   border: 1px solid rgba(212, 168, 67, 0.1);
-  border-radius: 12px;
+  border-radius: 0;
   padding: 2.5rem 2rem;
   position: relative;
   transition: var(--transition-med);
@@ -83,8 +83,79 @@
   text-transform: uppercase;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .testimonials__grid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
+
+  .testimonial-card {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .testimonial-card__text {
+    font-size: 0.88rem;
+  }
+
+  .testimonial-card__quote {
+    font-size: 2.2rem;
+    top: 0.8rem;
+    right: 1rem;
+  }
+}
+
+/* ── Testimonials 3D + Glassmorphism Enhancements ── */
+
+/* Cards: subtle hover lift */
+.testimonial-card {
+  background: var(--black-card);
+  border: 1px solid rgba(212,168,67,0.1);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(212,168,67,0.25);
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.4),
+    0 0 0 1px rgba(212,168,67,0.08);
+}
+
+/* Top glowing edge on hover */
+.testimonial-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,168,67,0.6), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.testimonial-card:hover::before {
+  opacity: 1;
+}
+
+/* Stars: glow */
+.testimonial-card__stars {
+  text-shadow: 0 0 12px rgba(212,168,67,0.5);
+}
+
+/* Avatar: static outline */
+.testimonial-card__avatar {
+  box-shadow: 0 0 0 1px rgba(212,168,67,0.2);
+}
+
+/* Quote mark: brighter */
+.testimonial-card__quote {
+  color: rgba(212,168,67,0.2);
+  text-shadow: 0 0 20px rgba(212,168,67,0.15);
+  transition: color 0.4s ease;
+}
+.testimonial-card:hover .testimonial-card__quote {
+  color: rgba(212,168,67,0.35);
 }

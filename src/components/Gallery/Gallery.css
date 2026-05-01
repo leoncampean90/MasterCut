@@ -12,7 +12,7 @@
 
 .gallery__item {
   position: relative;
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
   cursor: pointer;
   background: var(--black-card);
@@ -65,25 +65,88 @@
   .gallery__grid {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
+    gap: 0.5rem;
   }
 
   .gallery__item:nth-child(1) {
     grid-column: span 2;
     grid-row: span 1;
-    min-height: 250px;
+    min-height: 240px;
   }
 
   .gallery__item {
-    min-height: 180px;
+    min-height: 160px;
   }
 }
 
 @media (max-width: 480px) {
   .gallery__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+  }
+
+  .gallery__item {
+    min-height: 140px;
   }
 
   .gallery__item:nth-child(1) {
-    grid-column: span 1;
+    grid-column: span 2;
+    min-height: 200px;
   }
+
+  .gallery__overlay-text {
+    font-size: 0.8rem;
+  }
+}
+
+/* ── Gallery 3D + Futuristic Enhancements ── */
+
+/* Grid: ambient subtle glow background */
+.gallery {
+  background-image:
+    radial-gradient(ellipse at 30% 50%, rgba(212,168,67,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 20%, rgba(212,168,67,0.03) 0%, transparent 50%);
+}
+
+/* Items: lift on hover */
+.gallery__item {
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+.gallery__item:hover {
+  transform: scale(1.015);
+  border-color: rgba(212,168,67,0.25);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  z-index: 2;
+}
+
+/* Corner accent brackets */
+.gallery__item::before {
+  content: '';
+  position: absolute;
+  top: 0.6rem; left: 0.6rem;
+  width: 20px; height: 20px;
+  border-top: 1.5px solid rgba(212,168,67,0);
+  border-left: 1.5px solid rgba(212,168,67,0);
+  z-index: 4;
+  pointer-events: none;
+  transition: border-color 0.3s ease 0.05s;
+}
+.gallery__item:hover::before {
+  border-top-color: rgba(212,168,67,0.7);
+  border-left-color: rgba(212,168,67,0.7);
+}
+
+/* Overlay text: neon glow */
+.gallery__overlay-text {
+  text-shadow: 0 0 20px rgba(212,168,67,0.5), 0 0 40px rgba(212,168,67,0.2);
+  letter-spacing: 2px;
+}
+
+/* Image: slight brightness boost on hover */
+.gallery__item:hover .gallery__item-image {
+  transform: scale(1.06);
+  filter: brightness(0.7) saturate(1.1);
 }
