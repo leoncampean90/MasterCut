@@ -101,7 +101,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: content-in 1s 0.1s ease both;
+  transform-origin: center center;
+  animation: content-in 1s 0.1s ease both, text-breathe 20s ease-in-out infinite;
+}
+
+@keyframes text-breathe {
+  0%   { scale: 1.0; }
+  50%  { scale: 1.3; }
+  100% { scale: 1.0; }
 }
 
 @keyframes content-in {
@@ -168,7 +175,7 @@
 
 /* ── Title ── */
 .hero__title {
-  font-size: clamp(3rem, 7.5vw, 5.2rem);
+  font-size: clamp(2rem, 5vw, 3.4rem);
   font-weight: 800;
   line-height: 1.04;
   margin-bottom: 2.2rem;
@@ -336,6 +343,7 @@
     padding: 0;
     text-align: left;
     align-items: flex-start;
+    transform-origin: left bottom;
   }
 
   .hero__content::before {
@@ -350,7 +358,7 @@
   }
 
   .hero__title {
-    font-size: clamp(2.4rem, 9vw, 3.2rem);
+    font-size: clamp(1.5rem, 6vw, 2rem);
     margin-bottom: 1.6rem;
   }
 
@@ -409,7 +417,7 @@
   }
 
   .hero__title {
-    font-size: clamp(2rem, 12vw, 2.9rem);
+    font-size: clamp(1.2rem, 7vw, 1.6rem);
     margin-bottom: 1.1rem;
     letter-spacing: -0.015em;
     line-height: 1.06;
@@ -446,7 +454,7 @@
 /* ── Very small phones (SE etc) ── */
 @media (max-width: 380px) {
   .hero__title {
-    font-size: clamp(1.75rem, 13vw, 2.2rem);
+    font-size: clamp(1rem, 7.5vw, 1.3rem);
   }
 
   .hero__badge {
